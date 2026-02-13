@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// 1. Importaciones esenciales de Bootstrap
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+$primary: #385669;
+
+// 1.5 Sobrescribir la fuente de Bootstrap
+$font-family-sans-serif:
+  'Inter',
+  system-ui,
+  -apple-system,
+  sans-serif;
+$font-size-base: 0.9rem;
+
+// 2. Definición de colores
+$gray-primary: #385669;
+$gray-secondary: #d1a15e; // Un dorado/ocre elegante que combina con el azul grisáceo
+
+// 3. Integración en el mapa de temas de Bootstrap
+// Esto hace que funcionen clases como bg-gray-primary o text-gray-secondary
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'primary': $primary,
+    'gray-primary': $gray-primary,
+    'gray-secondary': $gray-secondary,
+  )
+);
+
+// 4. Importar Bootstrap completo
+@import 'bootstrap/scss/bootstrap';
+
+.table {
+  thead.table-primary {
+    --bs-table-bg: #{$primary};
+    --bs-table-color: #ffffff;
+    border-color: darken($primary, 5%);
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #334155; // Un gris pizarra que queda muy pro con Inter
+}
+
+// 5. Clases de botones personalizados (después de importar Bootstrap)
+.btn-gray-primary {
+  @include button-variant($gray-primary, $gray-primary);
+  color: #ffffff !important;
+  &:hover {
+    background-color: darken($gray-primary, 8%);
+    border-color: darken($gray-primary, 10%);
+  }
+}
+
+.btn-gray-secondary {
+  @include button-variant($gray-secondary, $gray-secondary);
+  color: #ffffff !important;
+  &:hover {
+    background-color: darken($gray-secondary, 8%);
+    border-color: darken($gray-secondary, 10%);
+  }
+}
+
+// 6. Tips adicionales: Personalizar el enfoque (focus) de los inputs
+// Para que cuando hagas clic en un input, brille con tu color primario
+.form-control:focus {
+  border-color: lighten($gray-primary, 20%);
+  box-shadow: 0 0 0 0.25rem rgba($gray-primary, 0.25);
+}
+
+// Estilo para los Badges (etiquetas)
+.badge-soft-primary {
+  background-color: rgba($gray-primary, 0.1);
+  color: $gray-primary;
+  border: 1px solid rgba($gray-primary, 0.2);
+}
