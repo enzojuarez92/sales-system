@@ -19,13 +19,6 @@
         <font-awesome-icon icon="fa-solid fa-plus" />
         <span>Agregar Usuario</span>
       </router-link>
-      <!-- <button
-        @click="isModalOpen = true"
-        class="btn btn-sm btn-gray-primary d-flex align-items-center gap-2"
-      >
-        <font-awesome-icon icon="fa-solid fa-plus" />
-        <span>Agregar Usuario</span>
-      </button> -->
     </div>
     <div class="card shadow-sm border-0">
       <div class="card-body">
@@ -118,7 +111,6 @@ import Pagination from '@/components/common/Pagination.vue'
 import ConfirmModal from '@/components/common/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
 
-const isModalOpen = ref(false)
 const flashMessage = ref('')
 const userStore = useUserStore()
 

@@ -46,55 +46,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="nav-item mb-1">
-          <div
-            class="d-flex align-items-center px-3 py-2 text-white rounded-3 hover-bg-secondary cursor-pointer"
-            :class="{ 'justify-content-center': !isOpen }"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseProductos"
-          >
-            <font-awesome-icon
-              icon="fa-solid fa-box-archive"
-              class="fa-lg flex-shrink-0"
-              :class="{ 'me-3': isOpen }"
-            />
-            <div v-if="isOpen" class="d-flex justify-content-between align-items-center w-100">
-              <span class="text-nowrap fw-semibold">Productos</span>
-              <font-awesome-icon icon="fa-solid fa-chevron-down" class="small arrow-icon" />
-            </div>
-          </div>
-          <div class="collapse" id="collapseProductos">
-            <div
-              class="d-flex flex-column gap-1 mt-1"
-              :class="{ 'ms-4 ps-2 border-start border-secondary': isOpen }"
-            >
-              <router-link
-                to="/productos"
-                class="nav-link text-white-50 py-2 px-3 small hover-text-white"
-                >Inventario</router-link
-              >
-              <router-link
-                to="/categorias"
-                class="nav-link text-white-50 py-2 px-3 small hover-text-white"
-                >Categorías</router-link
-              >
-            </div>
-          </div>
-        </div>
-
-        <router-link
-          to="/reportes"
-          class="d-flex align-items-center px-3 py-2 text-white rounded-3 hover-bg-secondary text-decoration-none mb-2"
-          :class="{ 'justify-content-center': !isOpen }"
-        >
-          <font-awesome-icon
-            icon="fa-solid fa-chart-line"
-            class="fa-lg flex-shrink-0"
-            :class="{ 'me-3': isOpen }"
-          />
-          <span v-if="isOpen" class="fw-semibold">Reportes</span>
-        </router-link> -->
       </nav>
     </div>
   </div>
