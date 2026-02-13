@@ -40,8 +40,8 @@
                 <td>{{ u.name }}</td>
                 <td>{{ u.lastname }}</td>
                 <td>{{ u.email }}</td>
-                <td>{{ u.document }}</td>
-                <td>{{ u.dateOfBirth }}</td>
+                <td>{{ formatDocument(u.document) }}</td>
+                <td>{{ formatDate(u.dateOfBirth) }}</td>
                 <td>{{ u.username }}</td>
                 <td class="px-4 text-center">
                   <div class="dropdown">
@@ -95,13 +95,14 @@
   </div>
 
   <confirm-modal
-    :show="showConfirmModal"
-    title="Eliminar Usuario"
-    :message="`¿Estás seguro que deseas eliminar a ${userToDelete?.name}? Esta acción no se puede deshacer.`"
-    confirm-text="Sí, Eliminar"
-    :loading="isDeleting"
-    @close="showConfirmModal = false"
-  />
+  :show="showConfirmModal"
+  title="Eliminar Usuario"
+  :message="`¿Estás seguro de eliminar a ${userToDelete?.name}?`"
+  confirm-text="Sí, Eliminar"
+  :loading="isDeleting"
+  @close="showConfirmModal = false"
+  @confirm="confirmDelete" 
+/>
 </template>
 
 <script setup lang="ts">
@@ -110,6 +111,7 @@ import { useUserStore } from '@/stores/userStore'
 import Pagination from '@/components/common/Pagination.vue'
 import ConfirmModal from '@/components/common/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
+import { formatDate, formatDocument } from '@/utils/helpers'
 
 const flashMessage = ref('')
 const userStore = useUserStore()
@@ -129,22 +131,23 @@ const openDeleteModal = (user: any) => {
   showConfirmModal.value = true
 }
 
-// Función que realmente llama a la API (vía Store)
-// const confirmDelete = async () => {
-//   if (!userToDelete.value) return
-
-//   isDeleting.value = true
-//   try {
-//     await userStore.deleteUser(userToDelete.value.id)
-//     toast.success('Usuario eliminado correctamente')
-//     showConfirmModal.value = false
-//   } catch (err) {
-//     toast.error('No se pudo eliminar al usuario')
-//   } finally {
-//     isDeleting.value = false
-//     userToDelete.value = null
-//   }
-// }
+const confirmDelete = async () => {
+  if (!userToDelete.value) return
+  isDeleting.value = true
+  try {
+    await userStore.deleteUser(userToDelete.value.id) // Llamamos al Store
+    toast.success('Usuario eliminado correctamente',{
+      position: 'bottom-rigth',
+      timeout: 3000,
+    })
+    showConfirmModal.value = false
+  } catch (err) {
+    toast.error('Ocurrió un error al intentar eliminar')
+  } finally {
+    isDeleting.value = false
+    userToDelete.value = null
+  }
+}
 </script>
 
 <style scoped>
@@ -154,5 +157,21 @@ const openDeleteModal = (user: any) => {
 
 .transition-all {
   transition: all 0.2s ease-in-out;
+}
+
+/* Aseguramos que el cuerpo de la card tenga un espacio digno siempre */
+.card-body {
+  min-height: 400px; /* Ajustá este valor a tu gusto */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Esto empuja la paginación siempre al fondo */
+}
+
+.table-responsive {
+  flex-grow: 1; /* Hace que la tabla ocupe el espacio disponible */
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 </style>

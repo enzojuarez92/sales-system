@@ -118,6 +118,29 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const deleteUser = async (id: string) => {
+  loading.value = true
+  try {
+    const res = await fetch(`${apiUrl}/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+
+    if (!res.ok) throw new Error('Error HTTP ' + res.status)
+
+    await getUsers(pagination.value.current_page)
+
+  } catch (error) {
+    console.error("Error al eliminar:", error)
+    throw error 
+  } finally {
+    loading.value = false
+  }
+}
+
   return {
     users,
     currentUser,
@@ -127,6 +150,7 @@ export const useUserStore = defineStore('user', () => {
     getUsers,
     createUser,
     updateUser,
+    deleteUser,
     pagination,
   }
 })
